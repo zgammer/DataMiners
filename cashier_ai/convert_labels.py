@@ -2,9 +2,10 @@ import cv2
 import pandas as pd
 from datetime import time
 from pathlib import Path
+import re
 
 SRC = "data/open_labels.xlsx"                      # путь к вашему Excel
-COL_VIDEO, COL_VIOL, COL_TIME = "название", "нарушение", "таймкод"
+COL_VIDEO, COL_VIOL, COL_TIME = "наименование файла", "нарушение / без нарушения", "таймстемп"
 
 df = pd.read_excel(SRC)
 print("Колонки в файле:", df.columns.tolist())
@@ -19,10 +20,14 @@ def to_sec(x):
         sec = 0
         for p in s.split(":"): sec = sec * 60 + float(p)
         return sec
-    return float(s)
+    values = [float(value.replace(",", ".")) for value in re.findall(r"\d+(?:[.,]\d+)?", s)]
+    if not values: return float(s)
+    if "час" in s.lower(): return values[0] * 3600 + (values[1] * 60 if len(values) > 1 else 0) + (values[2] if len(values) > 2 else 0)
+    if "мин" in s.lower(): return values[0] * 60 + (values[1] if len(values) > 1 else 0)
+    return values[0]
 
 def to_flag(x):
-    return 0 if str(x).strip().lower() in ("", "nan", "0", "нет", "норма", "нет нарушения") else 1
+    return 0 if str(x).strip().lower() in ("", "nan", "0", "нет", "норма", "нет нарушения", "без нарушения") else 1
 
 rows = []
 for _, r in df.iterrows():
