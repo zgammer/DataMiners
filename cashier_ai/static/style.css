@@ -1,0 +1,1055 @@
+/* ==========================================================================
+   Forte Bank Digital Corporate Identity - Cashier AI Design System
+   Концепция: "Диджитализация и рассвет" (Технологичный минимализм)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+
+:root {
+  /* 1. Основная суббрендовая палитра Forte */
+  --forte-magenta: #A31551;         /* Основной Forte: сила, уверенность */
+  --forte-magenta-hover: #860f41;
+  --forte-solo: #4A0221;            /* Forte Solo: глубокий пурпурный, премиум */
+  --forte-premier: #006837;         /* Forte Premier: благородный зеленый, VIP */
+  --forte-premier-light: #EBF7EE;
+  --forte-business: #0B2545;        /* Forte Business: темно-синий, МСБ */
+  --forte-business-light: #EDF3FB;
+  --forte-corporate: #00529B;       /* Forte Corporate: синий, корпорации */
+
+  /* 2. Вспомогательные акценты и оттенки */
+  --forte-sky-blue: #61CFFF;        /* Sky Blue: свежесть, диджитал */
+  --forte-coral: #FC9385;           /* Coral Sunshine: рассвет, акценты */
+  --forte-pink: #FF75A0;
+
+  /* 3. Фирменные градиенты */
+  --grad-magenta-coral: linear-gradient(135deg, #4A0221 0%, #A31551 52%, #FC9385 100%);
+  --grad-magenta-pink: linear-gradient(135deg, #A31551 0%, #D82672 50%, #FF75A0 100%);
+  --grad-dawn-soft: linear-gradient(180deg, rgba(163, 21, 81, 0.04) 0%, rgba(252, 147, 133, 0.06) 100%);
+  --grad-card: linear-gradient(180deg, #FFFFFF 0%, #FAFBFC 100%);
+
+  /* 4. Нейтральная палитра ("Воздух" и читаемость) */
+  --bg-page: #F6F7F9;
+  --bg-card: #FFFFFF;
+  --bg-input: #FFFFFF;
+  --bg-subtle: #F0F2F6;
+  --border-color: #E2E6EE;
+  --border-focus: #A31551;
+  
+  --text-primary: #191E28;
+  --text-secondary: #586376;
+  --text-muted: #8E99AA;
+  --text-white: #FFFFFF;
+
+  /* 5. Радиусы и тени интерфейса */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 2px 8px rgba(11, 37, 69, 0.04);
+  --shadow-md: 0 8px 24px rgba(74, 2, 33, 0.06), 0 2px 6px rgba(11, 37, 69, 0.04);
+  --shadow-lg: 0 16px 40px rgba(74, 2, 33, 0.09), 0 4px 12px rgba(11, 37, 69, 0.04);
+  --shadow-glow: 0 8px 24px rgba(163, 21, 81, 0.25);
+
+  --font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Сброс и базовые настройки */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.55;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Фон с мотивом рассвета Forte */
+.page-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 480px;
+  background: radial-gradient(circle at 50% -80px, rgba(163, 21, 81, 0.12) 0%, rgba(252, 147, 133, 0.08) 35%, rgba(246, 247, 249, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Контейнер макета с правилом охранной зоны */
+.container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   Шапка сайта (Header) с охранной зоной Forte
+   ========================================================================== */
+.site-header {
+  padding: 24px 0 20px;
+  border-bottom: 1px solid rgba(226, 230, 238, 0.7);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Фирменный знак рассвета с восходящими лучами */
+.brand-sun-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: var(--grad-magenta-coral);
+  box-shadow: 0 4px 14px rgba(163, 21, 81, 0.28);
+  flex-shrink: 0;
+}
+
+.brand-sun-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.brand-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: var(--forte-magenta);
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.brand-name span {
+  color: var(--forte-business);
+  font-weight: 600;
+}
+
+.brand-sub {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 3px;
+}
+
+/* Бейджи суббрендов Forte */
+.header-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subbrand-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  background: var(--forte-business-light);
+  color: var(--forte-business);
+  border: 1px solid rgba(11, 37, 69, 0.12);
+}
+
+.subbrand-pill.ai {
+  background: rgba(163, 21, 81, 0.08);
+  color: var(--forte-magenta);
+  border-color: rgba(163, 21, 81, 0.18);
+}
+
+/* ==========================================================================
+   Hero-секция ("Диджитализация и рассвет", воздух и массивные заголовки)
+   ========================================================================== */
+.hero-section {
+  padding: 48px 0 32px;
+  text-align: center;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--forte-magenta);
+  background: rgba(163, 21, 81, 0.08);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 16px;
+  letter-spacing: 0.3px;
+}
+
+.hero-tag svg {
+  width: 14px;
+  height: 14px;
+}
+
+.hero-title {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--forte-business);
+  line-height: 1.18;
+  letter-spacing: -0.7px;
+  margin-bottom: 14px;
+}
+
+.hero-title .gradient-text {
+  background: var(--grad-magenta-pink);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-desc {
+  font-size: 17px;
+  color: var(--text-secondary);
+  font-weight: 400;
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Главная карточка формы (Forte Card UI)
+   ========================================================================== */
+.main-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Тонкая акцентная полоска на карточке */
+.main-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--grad-magenta-coral);
+}
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Поле API-ключа */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--forte-business);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.field-hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.form-input {
+  width: 100%;
+  padding: 13px 16px 13px 44px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--bg-input);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-input:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 4px rgba(163, 21, 81, 0.12);
+}
+
+/* ==========================================================================
+   Дропзона загрузки видео (Drag & Drop Zone)
+   ========================================================================== */
+.dropzone {
+  border: 2px dashed #CFD6E2;
+  border-radius: var(--radius-lg);
+  padding: 38px 24px;
+  text-align: center;
+  background: var(--grad-dawn-soft);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.dropzone:hover, .dropzone.dragover {
+  border-color: var(--forte-magenta);
+  background: rgba(163, 21, 81, 0.03);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(163, 21, 81, 0.08);
+}
+
+.dropzone-icon-wrap {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--forte-magenta);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast);
+}
+
+.dropzone:hover .dropzone-icon-wrap {
+  transform: scale(1.08);
+  color: var(--forte-solo);
+}
+
+.dropzone-icon-wrap svg {
+  width: 28px;
+  height: 28px;
+}
+
+.dropzone-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--forte-business);
+  margin-bottom: 6px;
+}
+
+.dropzone-title span {
+  color: var(--forte-magenta);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dropzone-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.file-input-hidden {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Превью выбранного файла */
+.file-preview {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  margin-top: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.file-preview.active {
+  display: flex;
+}
+
+.file-preview-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.file-preview-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: rgba(163, 21, 81, 0.09);
+  color: var(--forte-magenta);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.file-preview-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.file-preview-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 450px;
+}
+
+.file-preview-size {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.file-remove-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.file-remove-btn:hover {
+  background: #FEE4E2;
+  color: #B42318;
+}
+
+/* ==========================================================================
+   Кнопки действий (Forte Action Buttons)
+   ========================================================================== */
+.action-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.btn-primary {
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-white);
+  background: var(--forte-magenta);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px 28px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(163, 21, 81, 0.32);
+  transition: all var(--transition-normal);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--forte-magenta-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(163, 21, 81, 0.45);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   Индикатор обработки (Forte Sunrise Animation)
+   ========================================================================== */
+.processing-card {
+  display: none;
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  text-align: center;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.processing-card.active {
+  display: block;
+}
+
+/* Анимированные лучи восходящего солнца */
+.sun-rays-loader {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  position: relative;
+}
+
+.sun-core {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--grad-magenta-coral);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(252, 147, 133, 0.7);
+  animation: pulse-sun 2s ease-in-out infinite;
+}
+
+.sun-ring {
+  width: 64px;
+  height: 64px;
+  border: 3px solid transparent;
+  border-top-color: var(--forte-magenta);
+  border-right-color: var(--forte-coral);
+  border-radius: 50%;
+  animation: rotate-ring 1.4s linear infinite;
+}
+
+@keyframes pulse-sun {
+  0%, 100% { transform: scale(0.92); opacity: 0.9; }
+  50% { transform: scale(1.12); opacity: 1; }
+}
+
+@keyframes rotate-ring {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.processing-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--forte-business);
+  margin-bottom: 6px;
+}
+
+.processing-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.processing-steps {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.proc-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.proc-step.active {
+  color: var(--forte-magenta);
+}
+
+.proc-step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-color);
+}
+
+.proc-step.active .proc-step-dot {
+  background: var(--forte-magenta);
+  box-shadow: 0 0 8px rgba(163, 21, 81, 0.6);
+}
+
+/* ==========================================================================
+   Результаты анализа (Forte Verdict & Violation Cards)
+   ========================================================================== */
+#result {
+  margin-bottom: 48px;
+}
+
+/* Баннер общего вердикта */
+.verdict-banner {
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-md);
+  border: 1px solid transparent;
+}
+
+.verdict-banner.success {
+  background: var(--forte-premier-light);
+  border-color: rgba(0, 104, 55, 0.2);
+}
+
+.verdict-banner.violation {
+  background: rgba(163, 21, 81, 0.06);
+  border-color: rgba(163, 21, 81, 0.18);
+}
+
+.verdict-banner.error {
+  background: #FFF1F0;
+  border-color: #FFA39E;
+}
+
+.verdict-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.verdict-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.verdict-banner.success .verdict-icon {
+  background: var(--forte-premier);
+  color: #FFFFFF;
+}
+
+.verdict-banner.violation .verdict-icon {
+  background: var(--forte-magenta);
+  color: #FFFFFF;
+}
+
+.verdict-banner.error .verdict-icon {
+  background: #D92D20;
+  color: #FFFFFF;
+}
+
+.verdict-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.verdict-title {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.verdict-banner.success .verdict-title {
+  color: var(--forte-premier);
+}
+
+.verdict-banner.violation .verdict-title {
+  color: var(--forte-magenta);
+}
+
+.verdict-banner.error .verdict-title {
+  color: #B42318;
+}
+
+.verdict-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+.verdict-badge {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+}
+
+.verdict-banner.violation .verdict-badge {
+  background: var(--forte-magenta);
+  color: #FFFFFF;
+}
+
+.verdict-banner.success .verdict-badge {
+  background: var(--forte-premier);
+  color: #FFFFFF;
+}
+
+/* Карточка отдельного нарушения */
+.violation-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.violation-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(163, 21, 81, 0.25);
+}
+
+.violation-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.violation-type {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--forte-business);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.violation-meta-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timecode-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--forte-magenta);
+  background: rgba(163, 21, 81, 0.08);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.confidence-tag {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-subtle);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.violation-desc {
+  font-size: 14.5px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* Нормативное основание (Forte Business стилистика) */
+.rule-source-box {
+  background: var(--forte-business-light);
+  border-left: 3px solid var(--forte-corporate);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--forte-business);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.rule-source-label {
+  font-weight: 700;
+  color: var(--forte-corporate);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+/* Сетка стоп-кадров (Evidence frames) */
+.frames-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 10px;
+}
+
+.frames-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.frame-item {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background: #000;
+  cursor: pointer;
+  aspect-ratio: 16 / 9;
+}
+
+.frame-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.frame-item:hover img {
+  transform: scale(1.04);
+  opacity: 0.92;
+}
+
+.frame-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(11, 37, 69, 0.85);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.frame-zoom-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.frame-item:hover .frame-zoom-icon {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Лайтбокс для полноразмерного просмотра стоп-кадров
+   ========================================================================== */
+.lightbox-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(11, 37, 69, 0.88);
+  backdrop-filter: blur(8px);
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.lightbox-modal.active {
+  display: flex;
+}
+
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 85vh;
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  background: #000;
+}
+
+.lightbox-content img {
+  display: block;
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.lightbox-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.85) 100%);
+  color: #fff;
+  padding: 14px 20px;
+  font-size: 14px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+}
+
+.lightbox-close:hover {
+  background: var(--forte-magenta);
+}
+
+/* ==========================================================================
+   Подвал сайта (Footer)
+   ========================================================================== */
+.site-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+  background: #FFFFFF;
+  padding: 32px 0 24px;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--forte-business);
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.footer-links a:hover {
+  color: var(--forte-magenta);
+}
+
+/* ==========================================================================
+   Адаптивность (Mobile)
+   ========================================================================== */
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .main-card {
+    padding: 24px 18px;
+    border-radius: var(--radius-lg);
+  }
+
+  .action-group {
+    flex-direction: column;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+
+  .frames-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .file-preview-name {
+    max-width: 200px;
+  }
+}
