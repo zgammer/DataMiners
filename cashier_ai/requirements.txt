@@ -1,0 +1,15 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+python-multipart==0.0.9
+opencv-python-headless==4.10.0.84
+numpy<2
+pandas
+scikit-learn
+joblib
+torch
+open_clip_torch
+pillow
+# необязательно, для VLM (описания и второе мнение):
+# transformers>=4.45
+# accelerate
+# qwen-vl-utils

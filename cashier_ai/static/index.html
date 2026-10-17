@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Проверка кассовой дисциплины</title>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--card:#f4f5f7;--accent:#0b6e4f;--bad:#b42318}
+@media (prefers-color-scheme:dark){:root{--bg:#16181d;--fg:#e8e8e8;--card:#22252c;--accent:#3ecf8e;--bad:#ff7a70}}
+body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--fg);max-width:860px;margin:0 auto;padding:20px}
+.card{background:var(--card);border-radius:12px;padding:16px;margin:12px 0}
+button,input{font:inherit;padding:8px 12px;border-radius:8px;border:1px solid #8885}
+button{background:var(--accent);color:#fff;border:0;cursor:pointer}
+.bad{color:var(--bad);font-weight:600}.ok{color:var(--accent);font-weight:600}
+img{max-width:100%;border-radius:8px;margin:6px 6px 0 0;width:260px}
+</style></head><body>
+<h1>Проверка кассовой дисциплины</h1>
+<div class="card">
+  <input id="key" type="password" placeholder="API-ключ">
+  <input id="file" type="file" accept=".mov,video/*">
+  <button onclick="run()">Анализировать</button>
+  <div id="status"></div>
+</div>
+<div id="result"></div>
+<script>
+const $=id=>document.getElementById(id);
+async function run(){
+  const f=$('file').files[0]; if(!f) return;
+  const H={'X-API-Key':$('key').value};
+  $('status').textContent='Загрузка…'; $('result').innerHTML='';
+  const fd=new FormData(); fd.append('file',f);
+  const r=await fetch('/api/v1/analyze',{method:'POST',headers:H,body:fd});
+  if(!r.ok){$('status').textContent='Ошибка: '+r.status;return;}
+  const {job_id}=await r.json();
+  for(;;){
+    $('status').textContent='Обработка…';
+    const j=await (await fetch('/api/v1/jobs/'+job_id,{headers:H})).json();
+    if(j.status==='processing'){await new Promise(r=>setTimeout(r,2000));continue;}
+    $('status').textContent=''; return show(j);
+  }
+}
+function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function show(j){
+  if(j.status==='failed'){$('result').innerHTML='<div class="card bad">Ошибка: '+esc(j.error)+'</div>';return;}
+  if(j.verdict==='no_violation'){$('result').innerHTML='<div class="card ok">Нарушение не обнаружено</div>';return;}
+  let h='<div class="card bad">Обнаружены признаки возможных нарушений: '+j.violations.length+'</div>';
+  for(const v of j.violations){
+    const src=v.rule&&v.rule.document?esc(v.rule.document)+', '+esc(v.rule.item):esc(v.rule.note||'');
+    h+='<div class="card"><b>'+esc(v.type)+'</b> — '+v.timecode_sec+' с<p>'+esc(v.description)+'</p>'+
+       '<p><i>Источник: '+src+'</i></p>'+
+       v.evidence_frames.map(e=>'<img title="'+e.timestamp_sec+' с" src="data:image/jpeg;base64,'+e.image_base64+'">').join('')+'</div>';
+  }
+  $('result').innerHTML=h;
+}
+</script></body></html>
