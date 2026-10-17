@@ -10,6 +10,7 @@ from .video import sample_frames
 GAP = 2          # окон: склейка соседних срабатываний в одно событие
 MAX_EVENTS = 5
 TIME_BUDGET = 240  # с; жюри ждёт максимум 300
+MIN_CONFIDENCE = 0.25
 
 _emb = None
 _model = None
@@ -36,7 +37,7 @@ def analyze(path, job_id=""):
     F, centers = window_feats(emb)
     p = M["clf"].predict_proba(F)[:, 1]
 
-    idx = np.where(p >= M["thr"])[0]
+    idx = np.where(p >= max(M["thr"], MIN_CONFIDENCE))[0]
     groups = []
     for i in idx:
         if groups and i - groups[-1][-1] <= GAP:
