@@ -8,8 +8,11 @@
 # cluster_id (из artifacts/clusters/*) -> ключ типа. Заполняется вручную
 # после просмотра примеров кадров по каждому кластеру.
 CLUSTER_TO_TYPE = {
-    # 0: "unattended_cash",
-    # 1: "unauthorized_person_in_zone",
+    0: "unknown",
+    1: "unattended_cash",
+    2: "cash_acceptance_without_client_identification",
+    3: "",
+    4: ""
 }
 
 RULES = {
@@ -34,6 +37,13 @@ RULES = {
         "item": "",
         "verified": False,
     },
+    "cash_acceptance_without_client_identification": {
+    "title": "Приём наличных без идентификации клиента",
+    "what": "на видео не видно проверки личности клиента перед приёмом наличных",
+    "document": "Закон Республики Казахстан от 26 июля 2016 года № 11-VI ЗРК «О платежах и платежных системах»",
+    "item": "статья 13, пункт 12, подпункт 1",
+    "verified": False,
+},
 }
 
 
