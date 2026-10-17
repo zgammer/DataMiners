@@ -78,7 +78,7 @@ body {
 
 /* Фон с мотивом рассвета Forte */
 .page-background {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -985,8 +985,8 @@ body {
    ========================================================================== */
 .site-footer {
   margin-top: auto;
-  border-top: 1px solid var(--border-color);
-  background: #FFFFFF;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(210.46deg, #FF6A78 -3.25%, #9B053F 69.11%, #820232 86.64%);
   padding: 32px 0 24px;
 }
 
@@ -997,7 +997,7 @@ body {
   flex-wrap: wrap;
   gap: 16px;
   font-size: 13px;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .footer-brand {
@@ -1005,23 +1005,24 @@ body {
   align-items: center;
   gap: 8px;
   font-weight: 600;
-  color: var(--forte-business);
+  color: var(--text-white);
 }
 
 .footer-links {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 .footer-links a {
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.88);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 .footer-links a:hover {
-  color: var(--forte-magenta);
+  color: var(--text-white);
 }
 
 /* ==========================================================================
